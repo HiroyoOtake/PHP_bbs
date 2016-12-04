@@ -1,5 +1,11 @@
 <?php
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
+{
+	// var_dump($_POST);
+	$title = $_POST['title'];
+	$impression = $_POST['impression'];
+	$name = $_POST['name'];
+}
 ?>
 
 <!DOCTYPE html>
