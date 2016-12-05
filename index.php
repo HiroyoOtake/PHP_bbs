@@ -20,7 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 $posts = file($fileName, FILE_IGNORE_NEW_LINES); //FILE_IGNORE_NEW_LINESで$dataの"\n"を削る
 // var_dump($posts);
 $posts = array_reverse($posts); //取得したデータを逆に表示する
-var_dump($posts);
+// var_dump($posts);
+
 ?>
 
 <!DOCTYPE html>
@@ -37,5 +38,16 @@ var_dump($posts);
 			名前:<input type="text" name="name">
 			<input type="submit" value="感想を投稿">
 		</form>
+		<h3>現在の投稿は<?php echo count($posts); ?>件</h3>
+		<?php if (count($posts)) : ?>
+			<?php foreach ($posts as $post) : ?>
+				 <!-- $post = "タイトル  感想  名前  2015-04-14 22:31:54" -->
+				<?php list($title, $impression, $name, $createdAt) = explode("\t", $post); ?>
+				<li>
+					[<?php echo $title; ?>]「<?php echo $impression; ?>」
+					(<?php echo $name; ?>) - <?php echo $createdAt; ?>
+				</li>
+			<?php endforeach; ?>
+		<?php endif; ?>
 	</body>
 </html>
