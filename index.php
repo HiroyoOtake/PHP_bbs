@@ -1,5 +1,11 @@
 <?php
 
+//エスケープ処理
+function h($s)
+{
+	return htmlspecialchars($s, ENT_QUOTES, "UTF-8");
+}
+
 $fileName = "bbs.dat";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -54,8 +60,8 @@ $posts = array_reverse($posts); //取得したデータを逆に表示する
 				 <!-- $post = "タイトル  感想  名前  2015-04-14 22:31:54" -->
 				<?php list($title, $impression, $name, $createdAt) = explode("\t", $post); ?>
 				<li>
-					[<?php echo $title; ?>]「<?php echo $impression; ?>」
-					(<?php echo $name; ?>) - <?php echo $createdAt; ?>
+					[<?php echo h($title); ?>]「<?php echo h($impression); ?>」
+					(<?php echo h($name); ?>) - <?php echo h($createdAt); ?>
 				</li>
 			<?php endforeach; ?>
 		<?php endif; ?>
