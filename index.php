@@ -9,12 +9,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 	$impression = $_POST['impression'];
 	$name = $_POST['name'];
 
-	$createdAt = date('Y-m-d H:i:s');
-	$data = $title . "\t" . $impression . "\t" . $name . "\t" . $createdAt . "\n";
+	//バリデーション
+	if ($title != '' && $impression != '')
+	{
+		if ($name == '')
+		{
+			$name = '名無し';
+		}
 
-	$fp = fopen($fileName, "a");
-	fwrite($fp, $data);
-	fclose($fp);
+		$createdAt = date('Y-m-d H:i:s');
+		$data = $title . "\t" . $impression . "\t" . $name . "\t" . $createdAt . "\n";
+
+		$fp = fopen($fileName, "a");
+		fwrite($fp, $data);
+		fclose($fp);
+
+	}
 }
 
 $posts = file($fileName, FILE_IGNORE_NEW_LINES); //FILE_IGNORE_NEW_LINESで$dataの"\n"を削る
